@@ -52,7 +52,7 @@ const Main = ({ navigation }) => {
                 }
 
             } />
-            <Drawer.Screen name="Settings" component={Settings}
+            {/* <Drawer.Screen name="Settings" component={Settings}
                 options={
                     {
                         drawerLabel: 'Settings',
@@ -64,7 +64,7 @@ const Main = ({ navigation }) => {
                             />
                         )
                     }
-                } />
+                } /> */}
 
         </Drawer.Navigator>
     );
