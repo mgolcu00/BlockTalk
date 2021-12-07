@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text, StyleSheet, LogBox, TouchableOpacity, FlatList, ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet, LogBox, TouchableOpacity, FlatList, ActivityIndicator,Platform } from "react-native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import * as firebase from 'firebase/app';
@@ -47,7 +47,6 @@ const App = () => {
         // This listener is fired whenever a notification is received while the app is foregrounded
         notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
             setNotification(notification);
-            console.log(notification);
         });
 
         // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
@@ -118,12 +117,12 @@ async function registerForPushNotificationsAsync() {
         }
         token = (await Notifications.getExpoPushTokenAsync()).data;
         console.log(token);
-        savePushToken({ token: token }).then(res => {
-            if (res)
-                console.log(res);
-            else
-                console.log("token is valid");
-        })
+        // savePushToken({ token: token }).then(res => {
+        //     if (res)
+        //         console.log(res);
+        //     else
+        //         console.log("token is valid");
+        // })
     } else {
         alert('Must use physical device for Push Notifications');
     }

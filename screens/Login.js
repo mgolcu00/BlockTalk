@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Alert, TouchableOpacity, Pressable, TextInput, Platform } from "react-native";
+import { View, Text, StyleSheet, Alert, TouchableOpacity, Pressable, TextInput, Platform, SafeAreaView } from "react-native";
 import { signIn, getUser, createUser } from '../network/firebase/auth';
 import Ionicons from '@expo/vector-icons/Ionicons'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -104,42 +104,46 @@ const Login = ({ navigation }) => {
 
 
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerText}>Bl0ckT4lk</Text>
-                {/* <Image style={styles.logo} source={{ uri: 'https://cdn.pixabay.com/photo/2019/10/24/08/23/lock-4573711_1280.png' }} /> */}
-                <Ionicons name="ios-logo-electron" style={styles.logo} size={100} color="#a200ff" />
-            </View>
-            <View style={styles.body}>
-                <View style={styles.bodyContent}>
-                    <View style={styles.inputContainer}>
-                        <Ionicons name="ios-mail" style={styles.inputIcon} size={24} color="#00BFFF" />
-                        <TextInput style={styles.inputs}
-                            placeholder="Email"
-                            keyboardType="email-address"
-                            underlineColorAndroid='transparent'
-                            onChangeText={(username) => setUsername(username)} />
+        <SafeAreaView style={{
+            flex: 1,
+        }}>
+            <View style={styles.container}>
+                <View style={styles.header}>
+                    <Text style={styles.headerText}>Bl0ckT4lk</Text>
+                    {/* <Image style={styles.logo} source={{ uri: 'https://cdn.pixabay.com/photo/2019/10/24/08/23/lock-4573711_1280.png' }} /> */}
+                    <Ionicons name="ios-logo-electron" style={styles.logo} size={100} color="#a200ff" />
+                </View>
+                <View style={styles.body}>
+                    <View style={styles.bodyContent}>
+                        <View style={styles.inputContainer}>
+                            <Ionicons name="ios-mail" style={styles.inputIcon} size={24} color="#00BFFF" />
+                            <TextInput style={styles.inputs}
+                                placeholder="Email"
+                                keyboardType="email-address"
+                                underlineColorAndroid='transparent'
+                                onChangeText={(username) => setUsername(username)} />
+                        </View>
                     </View>
-                </View>
-                <View style={styles.bodyContent}>
-                    <View style={styles.inputContainer}>
-                        <Ionicons name="ios-lock-closed" style={styles.inputIcon} size={24} color="#00BFFF" />
-                        <TextInput style={styles.inputs}
-                            placeholder="Password"
-                            secureTextEntry={true}
-                            underlineColorAndroid='transparent'
-                            onChangeText={(password) => setPassword(password)} />
+                    <View style={styles.bodyContent}>
+                        <View style={styles.inputContainer}>
+                            <Ionicons name="ios-lock-closed" style={styles.inputIcon} size={24} color="#00BFFF" />
+                            <TextInput style={styles.inputs}
+                                placeholder="Password"
+                                secureTextEntry={true}
+                                underlineColorAndroid='transparent'
+                                onChangeText={(password) => setPassword(password)} />
+                        </View>
                     </View>
+                    <View style={styles.rememberContent}>
+                        <MyCheckbox onCheckedChange={(checked) => setChecked(checked)} />
+                        <Text style={styles.checkboxLabel}>Remember me</Text>
+                    </View>
+                    <TouchableOpacity style={styles.rightArrowSquareButton} onPress={() => login()}>
+                        <Ionicons name="ios-arrow-forward" style={styles.rightArrowSquareButtonIcon} size={32} color="white" />
+                    </TouchableOpacity>
                 </View>
-                <View style={styles.rememberContent}>
-                    <MyCheckbox onCheckedChange={(checked) => setChecked(checked)} />
-                    <Text style={styles.checkboxLabel}>Remember me</Text>
-                </View>
-                <TouchableOpacity style={styles.rightArrowSquareButton} onPress={() => login()}>
-                    <Ionicons name="ios-arrow-forward" style={styles.rightArrowSquareButtonIcon} size={32} color="white" />
-                </TouchableOpacity>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 
@@ -164,9 +168,9 @@ const styles = StyleSheet.create({
     headerText: {
         color: '#fff',
         fontSize: 50,
-        fontFamily: 'monospace',
+        fontFamily: Platform.OS === 'android' ? 'monospace' : null,
         textAlign: 'center',
-        marginTop: Platform.OS === 'ios' ? 0 : Constants.statusBarHeight,
+        marginTop: Platform.OS === 'ios' ? 54 : Constants.statusBarHeight,
         marginBottom: 20,
     },
     headerContent: {

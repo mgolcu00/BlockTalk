@@ -17,7 +17,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mertgolcu.blocktalk"
     },
     "android": {
       "adaptiveIcon": {
@@ -29,6 +30,15 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "",
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notif-icon.png",
+          "color": "#ffffff"
+        }
+      ]
+    ]
   }
 }

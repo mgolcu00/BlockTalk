@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     },
     tagText: {
         fontSize: 14,
-        fontFamily: 'monospace',
+        fontFamily: Platform.OS == "android" ? 'monospace' : null,
         color: '#fff',
     },
 });

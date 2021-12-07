@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList, ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, ActivityIndicator, Platform } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import Animated from 'react-native-reanimated';
@@ -68,6 +68,8 @@ const Notes = ({ navigation }) => {
     );
 
     return (
+
+
         <View style={styles.container}>
             <Ionicons name="ios-refresh" size={25} color={"#00BFFF"} onPress={
                 () => {
@@ -75,10 +77,10 @@ const Notes = ({ navigation }) => {
                 }
             } style={
                 {
-                    alignSelf:'flex-end',
+                    alignSelf: 'flex-end',
 
                 }
-            }/>
+            } />
 
             {
                 error ?
@@ -103,21 +105,22 @@ const Notes = ({ navigation }) => {
             }
 
             <ActivityIndicator style={styles.loading} size="large" color="#00BFFF" animating={isLoading} />
-            <BottomSheet
-                ref={sheetRef}
-                snapPoints={[500, 300, 0]}
-                borderRadius={10}
-                renderContent={renderContent}
-                initialSnap={2}
-                onOpenStart={() => {
-                    setVisible(false);
-                }}
-                onCloseEnd={() => {
-                    setVisible(true);
-                }}
-                callbackNode={fall}
-            />
-            {renderShadow()}
+            {Platform.OS == "android" ?
+                <BottomSheet
+                    ref={sheetRef}
+                    snapPoints={[500, 300, 0]}
+                    borderRadius={10}
+                    renderContent={renderContent}
+                    initialSnap={2}
+                    onOpenStart={() => {
+                        setVisible(false);
+                    }}
+                    onCloseEnd={() => {
+                        setVisible(true);
+                    }}
+                    callbackNode={fall}
+                /> : null}
+            {Platform.OS == "android" ? renderShadow() : null}
 
             {visible ?
                 <TouchableOpacity style={styles.addNoteButton}
@@ -184,7 +187,7 @@ const styles = StyleSheet.create({
     addNoteButtonText: {
         color: "white",
         fontSize: 20,
-        fontFamily: "Roboto",
+        fontFamily: Platform.OS == "android" ? "Roboto" : null,
     },
     addNoteButtonIcon: {
         marginRight: 10,
